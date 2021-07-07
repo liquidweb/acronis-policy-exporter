@@ -32,5 +32,5 @@ jobs:
           registry: docker.pkg.github.com
           password: ${{ secrets.GITHUB_TOKEN }}
           image: acronis-policy-exporter
-          cache: true
-          cache_registry: acronis-policy-exporter-cache
+          cache: false
+          # cache_registry: acronis-policy-exporter-cache
