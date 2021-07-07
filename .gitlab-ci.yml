@@ -1,0 +1,86 @@
+---
+stages:
+- test
+- dockerbuild
+
+test:
+  stage: test
+  variables:
+    CGO_ENABLED: 0
+  tags:
+    - docker
+  image: golang:alpine
+  script:
+    - go test -v ./...
+
+# golang_test:
+#   stage: test
+#   variables:
+#     CGO_ENABLED: 0
+#   tags:
+#     - dind
+#   image: docker:19.03.12
+#   script:
+#     - apk add make
+#     - make build
+#     - make test
+#   services:
+#   - docker:19.03.12-dind
+
+test-dockerbuild:
+  stage: dockerbuild
+  tags:
+    - docker
+  retry:
+    max: 1
+    when:
+      - runner_system_failure
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor
+      --context /builds/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/
+      --dockerfile /builds/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Dockerfile
+      --no-push
+      --build-arg CI_PROJECT_NAMESPACE=${CI_PROJECT_NAMESPACE}
+      --build-arg CI_PROJECT_NAME=${CI_PROJECT_NAME}
+
+dockerbuild-default:
+  extends: .dockerbuild
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH #hardcoded to main since we can't use $CI_DEFAULT_BRANCH yet
+  variables:
+    DOCKERFILE_NAME: "acronis_exporter"
+    REGISTRY_TAG: "latest"
+
+dockerbuild-tagged:
+  extends: .dockerbuild
+  rules:
+    - if: $CI_COMMIT_TAG
+  variables:
+    DOCKERFILE_NAME: "acronis_exporter"
+    REGISTRY_TAG: "${CI_COMMIT_TAG}"
+
+.dockerbuild:
+  stage: dockerbuild
+  tags:
+    - docker
+  retry:
+    max: 1
+    when:
+      - runner_system_failure
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor
+      --context /builds/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/
+      --dockerfile /builds/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/Dockerfile
+      --destination ${CI_REGISTRY_IMAGE}:${REGISTRY_TAG}
+      --build-arg CI_PROJECT_NAMESPACE=${CI_PROJECT_NAMESPACE}
+      --build-arg CI_PROJECT_NAME=${CI_PROJECT_NAME}
