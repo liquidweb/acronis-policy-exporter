@@ -1,0 +1,18 @@
+# HELP acronis_lastrun_timestamp Timestamp of last task run
+# TYPE acronis_lastrun_timestamp gauge
+acronis_lastrun_timestamp 1.605468082e+09
+# HELP acronis_policy_error Error from last run of policy
+# TYPE acronis_policy_error gauge
+acronis_policy_error{cause="",effect="",reason=""} 1
+# HELP acronis_policy_info Metadata Info of policy
+# TYPE acronis_policy_info gauge
+acronis_policy_info{machineName="cloudvmlb.support.lwtraining.net",policyId="FC1E08D9-A52D-4CD6-87A1-76E754D994ED",policyName="Liquid Web Default (Daily: 7PM)",policyType="backup",tenantId="1272639",tenantName="RZU0ND"} 1
+# HELP acronis_policy_state OK=0 WARNING=1 ERROR=2 UNKNOWN=3
+# TYPE acronis_policy_state gauge
+acronis_policy_state 0
+# HELP probe_duration_seconds milliseconds for probe to respond
+# TYPE probe_duration_seconds gauge
+probe_duration_seconds *
+# HELP probe_success Boolean if probe was successful
+# TYPE probe_success gauge
+probe_success 1

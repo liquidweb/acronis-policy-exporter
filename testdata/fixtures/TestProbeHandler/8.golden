@@ -1,0 +1,9 @@
+# HELP acronis_policy_state OK=0 WARNING=1 ERROR=2 UNKNOWN=3
+# TYPE acronis_policy_state gauge
+acronis_policy_state 3
+# HELP probe_duration_seconds milliseconds for probe to respond
+# TYPE probe_duration_seconds gauge
+probe_duration_seconds *
+# HELP probe_success Boolean if probe was successful
+# TYPE probe_success gauge
+probe_success 0

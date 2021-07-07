@@ -1,0 +1,6 @@
+.env
+.envrc
+/*.json
+/testdata/cache/
+/cache/
+acronis_exporter

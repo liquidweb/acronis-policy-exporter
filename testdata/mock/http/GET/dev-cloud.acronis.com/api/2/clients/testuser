@@ -1,0 +1,8 @@
+{
+  "type": "api_client",
+  "data": {
+    "client_name": "Acronis-Exporter dev client"
+  },
+  "tenant_id": "c8e6259d-a4d7-4ffc-8614-79c1d143cc54",
+  "status": "enabled"
+}

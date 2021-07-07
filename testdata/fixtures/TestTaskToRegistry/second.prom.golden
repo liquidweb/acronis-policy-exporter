@@ -1,0 +1,9 @@
+# HELP acronis_lastrun_timestamp Timestamp of last task run
+# TYPE acronis_lastrun_timestamp gauge
+acronis_lastrun_timestamp 1.605465004e+09
+# HELP acronis_policy_error Error from last run of policy
+# TYPE acronis_policy_error gauge
+acronis_policy_error{cause="",effect="",reason=""} 1
+# HELP acronis_policy_info Metadata Info of policy
+# TYPE acronis_policy_info gauge
+acronis_policy_info{machineName="cloudvmfileserver.support.lwtraining.net",policyId="67DC1F51-DEF3-4654-BA09-454DABFEAC69",policyName="Liquid Web Default (Daily: 6PM)",policyType="backup",tenantId="1272636",tenantName="C3R2PB"} 1
