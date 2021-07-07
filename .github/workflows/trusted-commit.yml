@@ -1,0 +1,21 @@
+name: commit jobs
+
+on:
+  push:
+    branches: [ main ]
+
+
+jobs:
+
+  dockerbuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Kaniko build
+        uses: aevea/action-kaniko@master
+        with:
+          registry: docker.pkg.github.com
+          password: ${{ secrets.GITHUB_TOKEN }}
+          image: acronis-policy-exporter
+          cache: true
+          cache_registry: acronis-policy-exporter-cache
