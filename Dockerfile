@@ -9,5 +9,5 @@ RUN go install \
 
 FROM alpine:latest
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=build /go/bin/acronis_exporter /acronis_exporter
-ENTRYPOINT ["/acronis_exporter"]
+COPY --from=build /go/bin/acronis-policy-exporter /acronis-policy-exporter
+ENTRYPOINT ["/acronis-policy-exporter"]
