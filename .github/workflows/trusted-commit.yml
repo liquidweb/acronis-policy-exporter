@@ -13,9 +13,6 @@ jobs:
       options: --cpus 1
     steps:
     - uses: actions/checkout@master
-    # - uses: actions/setup-go@v2
-    #   with:
-    #     go-version: '^1.16.1'
     - name: non-interactive go test
       run: go test -v ./...
       env:
@@ -33,7 +30,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           image: acronis-policy-exporter
           cache: false
-          # cache_registry: acronis-policy-exporter-cache
 
   helm-lint:
     runs-on: ubuntu-latest
@@ -45,7 +41,7 @@ jobs:
           version: v3.4.0
 
       - name: Helm Lint
-        run: helm lint deploy/acronis-policy-exporter
+        run: helm lint charts/acronis-policy-exporter
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.2.1
