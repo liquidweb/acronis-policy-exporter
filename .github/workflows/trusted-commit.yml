@@ -12,7 +12,7 @@ jobs:
       image: golang:alpine
       options: --cpus 1
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@master
     # - uses: actions/setup-go@v2
     #   with:
     #     go-version: '^1.16.1'
@@ -34,3 +34,23 @@ jobs:
           image: acronis-policy-exporter
           cache: false
           # cache_registry: acronis-policy-exporter-cache
+
+  helm-lint:
+    runs-on: ubuntu-latest
+    container:
+      image: golang:alpine
+      options: --cpus 1
+    steps:
+      - uses: actions/checkout@master
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+
+      - name: Helm Lint
+        run: helm lint deploy/acronis-policy-exporter
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.2.1
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
