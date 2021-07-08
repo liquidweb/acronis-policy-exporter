@@ -37,9 +37,6 @@ jobs:
 
   helm-lint:
     runs-on: ubuntu-latest
-    container:
-      image: golang:alpine
-      options: --cpus 1
     steps:
       - uses: actions/checkout@master
       - name: Install Helm
