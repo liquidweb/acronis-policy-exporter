@@ -51,9 +51,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: acronis-exporter.local
-      paths: [/]
-    - host: acronis-exporter.pro.mon.dev.liquidweb.com
+    - host: acronis-policy.exporter.local
       paths: [/]
   tls: []
   #  - secretName: chart-example-tls

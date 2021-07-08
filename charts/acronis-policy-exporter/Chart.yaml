@@ -1,9 +1,9 @@
 apiVersion: v2
-name: acronis-exporter
+name: acronis-policy-exporter
 type: application
-version: 1.0.1
-appVersion: v1.0.0
-description: acronis-exporter for Prometheus monitoring of Acronis tasks 
-home: https://git.liquidweb.com/actionnewsteam/acronis_exporter
+version: 0.0.1
+appVersion: 0.0.1
+description: Prometheus monitoring of Acronis tasks and policy state
+home: https://github.com/liquidweb/acronis-policy-exporter
 sources:
-  - https://git.liquidweb.com/actionnewsteam/acronis_exporter
+  - https://github.com/liquidweb/acronis-policy-exporter
